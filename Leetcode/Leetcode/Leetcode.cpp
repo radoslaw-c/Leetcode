@@ -14,11 +14,12 @@ public:
             return false;
 
         vector<int> currentNode = { row, col };
-        if (find(visited.begin(), visited.end(), currentNode) != visited.end())
+
+        if (visited.at(row).at(col) == 1)
             return false;
 
 
-        visited.push_back(currentNode);
+		visited.at(row).at(col) = 1;
 
         if (grid.at(row).at(col) == '0')
             return false;
@@ -35,8 +36,8 @@ public:
     int numIslands(vector<vector<char>>& grid) {
         const auto rows = grid.size();
         const auto columns = grid.front().size();
-        vector<vector<int>> visited;
-		visited.reserve(rows * columns);
+		vector<vector<int>> visited(rows, vector<int>(columns, 0));
+		
         auto count = 0;
 
         for (int row = 0; row < rows; ++row)
